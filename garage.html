@@ -4,7 +4,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="viewport" content="height = device-height, width = device-width, user-scalable = no"/>
-<title> Fetch </title>
+
+<title>  </title>
 
 <!-- This code adds app icons -->
 
@@ -24,18 +25,18 @@
 
 <script type="text/javascript">
     webiopi().ready(function() {
-        var content, content2, button, content3, button3;
-            content  = $("#content");
-			content2 = $("#openCloseButton");
-				$(checkStatus);
-			content3 = $("#optionsBtn");
+        	var content, content2, button, content3, button3;
+		content  = $("#content");
+		content2 = $("#openCloseButton");
+		$(checkStatus);
+		content3 = $("#optionsBtn");
 
-		// GPIO 7 = Relay
-		// GPIO17 = Garage Light
-		// GPIO18 = Door Sensor
-		webiopi().setFunction(7,"in");
-		webiopi().setFunction(17,"out");
-		webiopi().setFunction(18,"in");
+	// GPIO 7 = Relay
+	// GPIO17 = Garage Light
+	// GPIO18 = Door Sensor
+	webiopi().setFunction(7,"in");
+	webiopi().setFunction(17,"out");
+	webiopi().setFunction(18,"in");
 		
 		
         // create an "OPEN" labeled button for GPIO 18
@@ -43,21 +44,21 @@
         content2.append(button); // append button to content div
 
         // create main garage button that calls the ButtonPrsd function below
-        button = webiopi().createButton("button", "FOR YOUR THOUGHTS", showConfirm );
+        button = webiopi().createButton("button", "GARAGE DOOR", showConfirm );
         content.append(button); // append button to content div
 
         // create options button that calls the showOptions function below
-        button3 = webiopi().createButton("options", "DECIDE", showOptions );
+        button3 = webiopi().createButton("options", "OPTIONS", showOptions );
         content3.append(button3); // append button to content div
 
-		// checks status of door sensor	
-		function checkStatus() {
-			if ($('#gpio18').hasClass('LOW'))
-			{	$("#gpio18").html('PUPSTER');
-				}else
-					{	$("#gpio18").html('LUCKY');
-					}
-			setTimeout(checkStatus,1000)
+	// checks status of door sensor	
+	function checkStatus() {
+		if (	$('#gpio18').hasClass('LOW')){
+		    	$("#gpio18").html('CLOSED');
+			}else {
+		    	$("#gpio18").html('OPEN');
+			}
+		setTimeout(checkStatus,1000)
 		}
 
 		// gets called by the ButtonPrsd function below - sets gpio7 back to 'IN'
@@ -317,14 +318,14 @@
 </head>
 
 <body>
-<div id="header"><h2> PENNY </h2></div>
+<div id="header"><h2> DOOR STATUS </h2></div>
 <div id="openCloseButton" style="margin-left: auto; margin-right: auto; position:relative"></div>
 
+<! -- ################################################### -->
 <!-- If Door Status Log or Light control implemented, uncomment following lines as appropriate -->
 <!-- -->
 <div id="content3" style="margin-left: auto; margin-right: auto; position:relative"></div>
 
-<!-- These two lines build the options box/div -->
 <div id="optionsText"><h3> &lt CHOOSE &gt </h3></div>
 <div id="optionsBox">
    <div id="log" class="optionButton">READ</div>
