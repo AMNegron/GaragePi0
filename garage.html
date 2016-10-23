@@ -75,7 +75,7 @@
 		// sets gpio7 to 'OUT' which will trip relay.  After .5 second, calls hideConfirm above.
 		// hides the confirmation div and changes door image
 		function ButtonPrsd() {
-            document.getElementById('button').style.background = "#808080 url('/door-action.gif') no-repeat center top";
+            document.getElementById('button').style.background = "#808080 url('/door-action2.gif') no-repeat center top";
 			webiopi().setFunction(7,"out");
 			hideConfirm();
 			setTimeout(ButtonRls, 500);
@@ -93,7 +93,7 @@
 				
 		// change action-image to normal
 		function ImgNormal() {
-			document.getElementById('button').style.background = "#808080 url('/door-static.png') no-repeat center bottom";
+			document.getElementById('button').style.background = "#808080 url('/door-static3.png') no-repeat center bottom";
 		}
 
 // The following functions are used for the options control display -->
