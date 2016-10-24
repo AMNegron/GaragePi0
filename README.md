@@ -1,2 +1,2 @@
 # GaragePi0
-Garage Door Opener
+Raspberry Pi Zero / WebIOPi - based Garage Door Opener
