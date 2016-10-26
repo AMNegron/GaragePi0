@@ -28,7 +28,6 @@
         	var content, content2, button, content3, button3;
 		content  = $("#content");
 		content2 = $("#openCloseButton"); $(checkStatus);
-		content3 = $("#optionsBtn");
 
 	// GPIO 7 = Relay
 	// GPIO17 = Garage Light
@@ -45,10 +44,6 @@
         // create main garage button that calls the ButtonPrsd function below
         button = webiopi().createButton("button", "GARAGE DOOR", showConfirm );
         content.append(button); // append button to content div
-
-        // create options button that calls the showOptions function below
-        button3 = webiopi().createButton("options", "OPTIONS", showOptions );
-        content3.append(button3); // append button to content div
 
 	// checks status of door sensor	
 	function checkStatus() {
@@ -93,33 +88,6 @@
 		// change action-image to normal
 		function ImgNormal() {
 			document.getElementById('button').style.background = "#808080 url('/door-static3.png') no-repeat center bottom";
-		}
-
-// The following functions are used for the options control display -->
-
-		// show options div after pressing OPTIONS button
-		function showOptions() {
-			document.getElementById('log').onclick = optionsLog;
-			document.getElementById('light').onclick = optionsLight;
-			document.getElementById('optionsBox').style.visibility = "visible";
-			document.getElementById('optionsText').style.visibility = "visible";
-		}				
-
-		// hide the optionsbox div
-		function hideOptions() {
-			document.getElementById('optionsBox').style.visibility = "hidden";
-			document.getElementById('optionsText').style.visibility = "hidden";
-        }
-
-        function optionsLog() {
-			hideOptions;
-			window.location.href = '/garage.log';
-		}
-
-		// Toggle Light Value
-        function optionsLight() {
-           	hideOptions;
-			webiopi().toggleValue(17,"out");
 		}
 
 		// constantly refresh status to see if door is open or closed
@@ -237,81 +205,6 @@
 			width: 300px;
 			height: 60px;
 		}
-
-<!-- The following CSS defines the options control display -->
-
-        	options {
-			display: block;
-			margin: 10px 10px;
-			margin-left: auto;
-			margin-right: auto;
-			padding: 0px;
-			width: 200px;
-			height: 30px;
-			font-size: 12pt;
-			font-weight: bold;
-			color: black;
-			border-radius: 10px !important;
-	        }
-		
-		options#options {
-			height: 200px !important;
-			background: #808080 no-repeat center bottom;
-			border-radius: 10px !important;
-			cursor: pointer !important;
-		}
-
-		#optionsBtn {
-			width: 200px;
-			height: 30px;
-		}
-
-                #optionsText {
-                        margin-left: auto;
-                        margin-right: auto;
-                        padding: 0px;
-                        margin-top: 0px;
-                        visibility: visible;
-                        width: 300px;
-                }
-
-                h3 {
-                        font-size: 12pt;
-                        text-align: center;
-                        margin-top: 0px;
-                        margin-bottom: 10px;
-                }
-
-                #optionsBox {
-                        height: 60px;
-                        width: 250px;
-                        margin-left: auto;
-                        margin-right: auto;
-                        position:relative;
-                        visibility: visible;
-                }
-
-                #log {
-                        background-color: blue;
-			color: white;
-                        float: left;
-                }
-                #light {
-                        background-color: yellow;
-                        float: right;
-                }
-
-                .optionButton {
-                        border: 1px solid #000000;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        height: 30px;
-                        width: 75px;
-                        font-size: 16pt;
-                        font-weight: bold;
-                        text-align: center;
-                        line-height: 30px;
-                }
 
 	</style>
 </head>
