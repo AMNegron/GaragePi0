@@ -7,10 +7,10 @@
 # rm /usr/share/webiopi/htdocs/garage.log
 # rm /var/log/garage.log
 
-printf "\nPennyPupster Tracker started at " >> /var/log/garage.log
+printf "\nGarage Tracker started at " >> /var/log/garage.log
 date >> /var/log/garage.log
 
-printf "\nPennyPupster Tracker started at " >> /usr/share/webiopi/htdocs/garage.log
+printf "\nGarage Tracker started at " >> /usr/share/webiopi/htdocs/garage.log
 date >> /usr/share/webiopi/htdocs/garage.log
 
 # GPIO 18 is used as the door sensor. Must be changed in two places if different (Lines 17 & 26)
@@ -26,14 +26,14 @@ STATE_PRV=$(</usr/bin/garage_state)
 STATE_CUR=$(</sys/class/gpio/gpio18/value)
 
 # ====================================
-# STATE_TEXT > go   = open
-# STATE_TEXT > stay = closed
+# STATE_TEXT = 1 > open
+# STATE_TEXT = 0 > closed
 
 if [ $STATE_CUR = 1 ]
 then
-       STATE_TEXT='GO'
+       STATE_TEXT='OPEN'
 else
-       STATE_TEXT='STAY'
+       STATE_TEXT='CLOSED'
 fi
 
 # ====================================
@@ -42,11 +42,11 @@ then
        sleep 5
 else
        date >> /var/log/garage.log
-       echo "PennyPupster Tracker " $STATE_CUR >> /var/log/garage.log
+       echo "Garage Tracker " $STATE_CUR >> /var/log/garage.log
        echo " 1=Open, 0=Closed" >> /var/log/garage.log
 
        STR1=$(date +%F)" "$(date +%R)
-       echo $STR1 "PENNY is" $STATE_TEXT >> /usr/share/webiopi/htdocs/garage.log
+       echo $STR1 "GARAGE is" $STATE_TEXT >> /usr/share/webiopi/htdocs/garage.log
 
        echo $STATE_CUR > /usr/bin/garage_state
 fi
