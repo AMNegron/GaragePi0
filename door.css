@@ -1,0 +1,185 @@
+<style type="text/css">
+		
+		body {
+			font-family: Arial, Helvetica, Sans-Serif;
+			padding: 0px;
+			margin: 0px;
+			background: #CCCCCC;
+		}
+
+		#content {
+			width: 300px;
+			height: 250px;
+		}
+		
+        	button {
+			display: block;
+			margin: 10px 10px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			width: 200px;
+			height: 50px;
+			font-size: 24pt;
+			font-weight: bold;
+			color: black;
+			border-radius: 10px !important;
+	        }
+		
+		button#button {
+			height: 250px !important;
+			background: #808080 url('door-static3.png') no-repeat center bottom;
+			border-radius: 10px !important;
+			cursor: pointer !important;
+		}
+
+		#gpio18.LOW {
+			color: #FFFFFF !important;
+		}
+
+		#gpio18.HIGH {
+			background-color: #00bfff;
+			color: #FFFFFF !important;
+		}
+
+		#header {
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 0px !important;
+			padding-top: 0px !important;
+		}
+
+		#confirmText {
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			margin-top: 0px;
+			visibility: hidden;
+			width: 300px;
+		}
+
+                h2 {
+                        text-align: center;
+                        margin-top: 0px !important;
+                        margin-bottom: 10px !important;
+                }
+
+		#doge {
+			width: 300px;
+			height: 80px;
+			position: absolute;
+			bottom: 0px;
+		}
+
+		#confirmBox {
+			height: 60px;
+			width: 200px;
+			margin-left: auto;
+			margin-right: auto;
+			position:relative;
+			visibility: hidden;
+		}
+
+		#yes {
+			background-color: green;
+			float: left;
+		}
+
+		#no {
+			background-color: red;
+			float: right;
+		}
+
+		.confirmButton {
+			border: 3px solid #000000;
+			border-radius: 10px;
+			cursor: pointer;
+			height: 50px;
+			width: 75px;
+			font-size: 24pt;
+	                font-weight: bold;
+			text-align: center;
+			line-height: 50px;
+		}
+
+		#openCloseButton {
+			width: 300px;
+			height: 60px;
+		}
+
+<!-- The following CSS defines the options control display -->
+
+        	options {
+			display: block;
+			margin: 10px 10px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			width: 200px;
+			height: 30px;
+			font-size: 12pt;
+			font-weight: bold;
+			color: black;
+			border-radius: 10px !important;
+	        }
+		
+		options#options {
+			height: 200px !important;
+			background: #808080 no-repeat center bottom;
+			border-radius: 10px !important;
+			cursor: pointer !important;
+		}
+
+		#optionsBtn {
+			width: 200px;
+			height: 30px;
+		}
+
+                #optionsText {
+                        margin-left: auto;
+                        margin-right: auto;
+                        padding: 0px;
+                        margin-top: 0px;
+                        visibility: visible;
+                        width: 300px;
+                }
+
+                h3 {
+                        font-size: 12pt;
+                        text-align: center;
+                        margin-top: 0px;
+                        margin-bottom: 10px;
+                }
+
+                #optionsBox {
+                        height: 60px;
+                        width: 250px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        position:relative;
+                        visibility: visible;
+                }
+
+                #log {
+                        background-color: blue;
+			color: white;
+                        float: left;
+                }
+                #light {
+                        background-color: yellow;
+                        float: right;
+                }
+
+                .optionButton {
+                        border: 1px solid #000000;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        height: 30px;
+                        width: 75px;
+                        font-size: 16pt;
+                        font-weight: bold;
+                        text-align: center;
+                        line-height: 30px;
+                }
+
+	</style>
