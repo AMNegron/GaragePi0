@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" />
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="height = device-height, width = device-width, user-scalable = no"/>
+
+  <title> DOOR STATUS </title>
+
+<!-- This code adds app icons -->
+
+<!-- ANDROID -->
+  <link rel="icon" sizes="192×192" href="/appicon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+
+<!-- APPLE -->
+  <link rel="apple-touch-startup-image" href="/appicon.png">
+  <link rel="apple-touch-icon" href="/appicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- .... -->
+
+  <script src="/webiopi.js"> </script>
+
+  <link rel="stylesheet" type="text/css" href="door.css">
+
+  <script src="door.js"> </script>
+
+</head>
+
+<body>
+<!-- These two div lines create the header and the Open/Close button -->
+  <div id="header"> <h2> DOOR STATUS </h2>
+    </div>
+  <div id="openCloseButton" style="margin-left: auto; margin-right: auto; position:relative">
+    </div>
+    
+<!-- This line builds the main button -->
+  <div id="content" style="margin-left: auto; margin-right: auto; position:relative">
+    </div>
+
+<!-- These two div lines build the confirmation box/div -->
+  <div id="confirmText"><h2>Are you sure?</h2>
+    </div>
+  <div id="confirmBox">
+      <div id="yes" class="confirmButton">YES
+        </div>
+      <div id="no" class="confirmButton">NO
+        </div>
+    </div>
+
+</body>
+</html>
