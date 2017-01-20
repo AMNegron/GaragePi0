@@ -35,8 +35,10 @@ https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for commen
 - micro-USB (male) to USB (female) cable adapter
   { Used for hub during initial setup; }
   { Can be used for wifi during final installation instead of cable-less adapter }
+  
 - USB Hub 
   { At least 2 ports, used during intial setup for wifi and keyboard/mouse }
+  
 - mini-HDMI to HDMI adapter 
   { For initial setup; Can SSH or VNC after initial setup }
   { Only required for Raspberry Pi Zero, all others have full HDMI }
@@ -45,7 +47,8 @@ https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for commen
 - Female-to-Female Jumper Wires
 - Male-to-Female Jumper wires
 - Wire Nuts
-- 2-conductor cable ~20-24 gauge wire (CAT6 cable works good)  
+- 2-conductor cable ~20-24 gauge wire (CAT6 cable works good)
+
 - Magnetic Switch {optional}
 - 1 10k Ohm resistor {required for magnetic switch}
 - 1 1k Ohm resistor {required for magnetic switch}
