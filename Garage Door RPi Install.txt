@@ -1,9 +1,7 @@
 
-
-
 ============= SOFTWARE =============
 
-Download latest stable Raspian {during the inital writing of this guide, Jessie Lite was used}
+Download latest stable Raspian {during the inital writing of this guide, Jessie Lite and Raspberry Pi (RasPi) Zero (RPZ) was used}
 
 Write .img file to SDCard
 Insert SDCard into RPZ
@@ -16,7 +14,7 @@ Connect power to RPZ
 { /// Connect to Wi-Fi network \\\ }
 { https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
 
-{ if using GUI, connect to your local network once RPZ is powered on. 
+{ if using GUI, connect to your local network once RasPi is powered on. 
 { Continue with next section => Setup RPZ settings }
 
 { if using CLI, continue below }
@@ -35,20 +33,16 @@ network={
 
 { \\\ END CODE /// }
 
-{ Restart RPZ}
+{ Restart RasPi}
     $ sudo reboot
 
-{ Verify successful connection by running following code and if the inet addr field has an address beside it, the RPZ has connected to the network. }
+{ Verify successful connection by running following code and if the inet addr field has an address beside it, the RasPi has connected to the network. }
     $ ifconfig wlan0
 
 { \\\ End of Wi-Fi network setup /// }
 
-{ Shutdown RPi}
-    $ sudo shutdown -h now
 
 
-{ At this point if you decide to continue with SSH/CLI, you can shutdown RPZ and remove USB Hub, KB/M and HDMI Cable }
-{ Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPZ }
 
 ================= SECTION BREAK =======================
 { Setup RPZ settings }
@@ -80,23 +74,21 @@ or
 
     $ exit config 
 
+{ Reboot or Shutdown as desired }
     $ sudo reboot
+    
+    $ sudo shutdown-h now
+    
+{ At this point if you decide to continue with SSH/CLI, you can shutdown RasPi and remove USB Hub, KB/M and HDMI Cable }
+{ If using RPZ, Connect the WiFi dongle to either USB-to-MicroUSB adapter and connect directly to RPZ}
 
 ================= SECTION BREAK =======================
 { Find Updates, Apply Upgrades, then Clean-up }
 
     $ sudo apt-get update
     $ sudo apt-get dist-upgrade
-    $ sudo apt-get clean
     $ sudo apt-get install git
-
-================= SECTION BREAK =======================
-### CAYENNE INSTALL ###
-
-{ http://www.cayenne-mydevices.com/docs/#introduction
-{ Download Cayenne App https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
-
-\\\ END CAYENNE INSTALL ///
+    $ sudo apt-get clean
 
 ================= SECTION BREAK =======================
 ### WEBIOPI INSTALL ###
@@ -125,15 +117,21 @@ or
 { install}
     $ sudo ./setup.sh
 
+================= READ BELOW BEFORE INSTALL =======================
+
 { If you only need local network access to your setup or, }
 { If you want outside internet access to your setup and are comfortable with port forwarding, }
-{ Answer NO to internet access question if presented. Otherwise }
+{ Answer NO to internet access question if presented. OTHERWISE }
 { If yes is chosen, must follow instructions to install Weaved IoT Kit at http://webiopi.trouch.com/INSTALL.html }
+{ or you can utilize CAYENNE software at http://www.cayenne-mydevices.com/docs/#introduction }
+{ Download Cayenne App https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8 }
+
+{ I have no experience with either platform, so no additional guidance will be provided }
+
+================= READ ABOVE BEFORE INSTALL =======================
 
 { set WebIOPi to start at boot}
     $ sudo update-rc.d webiopi defaults
-
-    $ sudo reboot
 
 { To change or remove username & password to access WEBIOPI, }
 { http://webiopi.trouch.com/PASSWORD.html }
@@ -143,21 +141,26 @@ or
 
 { To remove, delete contents or delete file /etc/webiopi/passwd }
     $ sudo nano /etc/webiopi/passwd
+    $ sudo rm /etc/webiopi/passwd
 
 { Restart WebIOPi }
     $ sudo /etc/init.d/webiopi restart
+    
+{ Reboot RasPi }
+    $ sudo reboot
 
 \\\ END WEBIOPI INSTALL ///
 
-
 ================= SECTION BREAK =======================
-{ HTML files }
+{ Location of HTML files }
+{ The index.html should be left in place for WebIOPi. }
+{ It can be replaced, but it should be backed-up }
+{ Best practice would be to directly access your own HTML landing page i.e. door.html }
 
     $ cd /usr/share/webiopi/htdocs
 
 { Transfer project files }
 
-    $ cd /usr/share/webiopi/htdocs
     $ sudo wget https://www.dropbox.com/s/3lz5od3xyqxl17i/garage.html
     $ sudo wget https://www.dropbox.com/s/f3qfwvjqgzft16m/door-static.png
     $ sudo wget https://www.dropbox.com/s/xj93wymxebbthu0/door-action.gif
@@ -172,81 +175,24 @@ or
 
 ================= SECTION BREAK =======================
 { *** DOOR STATUS log *** }
+{ Code copied and edited from comments section of :
 { http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/ }
 
     $ cd /
-    $ sudo nano /usr/bin/garage_status
+    $ sudo nano /usr/bin/door_status
 
-{ /// COPY & PASTE FOLLOWING CODE \\\ }
-
-#!/bin/bash
-
-# Garage Log process started - Write today's date to log files
-# Using -printf- command to print line break to visualize reboot in log 
-#   - Alternatively, you can uncomment the following two lines to start new logs on every reboot
-
-# rm /usr/share/webiopi/htdocs/garage.log
-# rm /var/log/garage.log
-
-printf "\nPennyPupster Tracker started at " >> /var/log/garage.log
-date >> /var/log/garage.log
-
-printf "\nPennyPupster Tracker started at " >> /usr/share/webiopi/htdocs/garage.log
-date >> /usr/share/webiopi/htdocs/garage.log
-
-# GPIO 18 is used as the door sensor. Must be changed in two places if different (Lines 17 & 26)
-echo "18" > /sys/class/gpio/export
-
-# Loop this whole script
-while true
-
-do
-# Assign the previous value (stored in file /usr/bin/garage_state) & get the current status of GPIO pin
-# Make sure to update GPIO value to the door sensor
-STATE_PRV=$(</usr/bin/garage_state)
-STATE_CUR=$(</sys/class/gpio/gpio18/value)
-
-# ====================================
-# STATE_TEXT > go   = open
-# STATE_TEXT > stay = closed
-
-if [ $STATE_CUR = 1 ]
-then
-       STATE_TEXT='GO'
-else
-       STATE_TEXT='STAY'
-fi
-
-# ====================================
-if [ "$STATE_PRV" = "$STATE_CUR" ]
-then
-       sleep 5
-else
-       date >> /var/log/garage.log
-       echo "PennyPupster Tracker " $STATE_CUR >> /var/log/garage.log
-       echo " 1=Open, 0=Closed" >> /var/log/garage.log
-
-       STR1=$(date +%F)" "$(date +%R)
-       echo $STR1 "PENNY is" $STATE_TEXT >> /usr/share/webiopi/htdocs/garage.log
-
-       echo $STATE_CUR > /usr/bin/garage_state
-fi
-       date
-
-done
-
-{ \\\ END CODE /// }
+{ /// COPY & PASTE file contents from file Door_Status \\\ }
 
 { Make this script executable: }
-    $ sudo chmod 777 /usr/bin/garage_status
+    $ sudo chmod 777 /usr/bin/door_status
     $ cd /etc
     $ sudo nano rc.local
 
-{ add the following line just above “exit 0”, to have garage_status startup on bootup.}
+{ add the following line just above “exit 0”, to have door_status startup on bootup.}
 
 { /// COPY & PASTE FOLLOWING CODE \\\ }
 
-/usr/bin/garage_status > /dev/null 2>&1 &
+/usr/bin/door_status > /dev/null 2>&1 &
 
 { \\\ END CODE /// }
 
@@ -258,7 +204,9 @@ done
 
 
 ================= SECTION BREAK =======================
-{ to change door pics, edit garage.html in three places, or you can just rename your images to door-action.png & door-static.png}
+{ To change images, you can rename your images to door-action.png & door-static.png }
+{ Alternatively, you can change the file names in the .css and .js files in three locations }
+
 background: #808080 url(‘door-static.png’) no-repeat center bottom;
 document.getElementById(‘button’).style.background = “#808080 url(‘/door-action.png’) no-repeat center bottom”;
 document.getElementById(‘button’).style.background = “#808080 url(‘/door-static.png’) no-repeat center bottom”;
