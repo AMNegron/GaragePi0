@@ -1,4 +1,6 @@
 
+
+
 ============= SOFTWARE =============
 
 Download latest stable Raspian {during the inital writing of this guide, Jessie Lite and Raspberry Pi (RasPi) Zero (RPZ) was used}
@@ -208,7 +210,7 @@ or
 { Alternatively, you can change the file names in the .css and .js files in three locations }
 
 background: #808080 url(‘door-static.png’) no-repeat center bottom;
-document.getElementById(‘button’).style.background = “#808080 url(‘/door-action.png’) no-repeat center bottom”;
+document.getElementById(‘button’).style.background = “#808080 url(‘/door-action.gif’) no-repeat center bottom”;
 document.getElementById(‘button’).style.background = “#808080 url(‘/door-static.png’) no-repeat center bottom”;
 
 
