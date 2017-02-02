@@ -1,66 +1,23 @@
-﻿ = Initial install project = 
-http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/
-
- = Alternate project = 
-http://itsbrent.net/2013/03/hacking-my-garage-with-a-raspberry-pi/
-
- = WebIOPi patch for new-gen (40pin) =
-https://github.com/thortex/rpi3-webiopi
-
- = Apple Siri integration =
-http://devpost.com/software/homekit-garage-door-opener
-
- = Notifications =
-http://www.richlynch.com/2013/07/27/pi_garage_alert_1/
 
 
- = Other Attempts =
-https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=8429&start=25
-https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for comments by danjperron » Wed Jan 06, 2016 8:22 pm}
-
-
-
-### Steps to Replicate ###
-
-Parts List
-
-- Raspberry Pi Zero 1.3
-- Zero Case
-- Wi-Fi USB dongle
-- micro-USB adapter { 
-- Micro-USB Charger 
-- Micro SD Card 
-- One 2x20-Pin header box or five-six 1-Pin headers 
-
-- micro-USB (male) to USB (female) cable { Used for hub during initial setup; can be used for wifi during final installation }
-- USB Hub { At least 2 ports, used during intial setup for wifi and keyboard/mouse }
-- mini-HDMI to HDMI adapter { For initial setup; Can SSH after initial setup }
-
-- Relay switch 
-- Female-to-Female Jumper Wires
-- Male-to-Female Jumper wires
-- Wire Nuts
-- 2-conductor cable ~20-24 gauge wire (CAT6 cable works good)  
-- Magnetic Switch {optional}
-- 1 10k Ohm resistor {required for magnetic switch}
-- 1 1k Ohm resistor {required for magnetic switch}
 
 ============= SOFTWARE =============
 
-Download latest stable Raspian {during the inital writing of this guide, Jessie Lite was used}
+Download latest stable Raspian {during the inital writing of this guide, Jessie Lite and Raspberry Pi (RasPi) Zero (RPZ) was used}
 
 Write .img file to SDCard
-Insert SDCard into RPi
-Connect USB Hub to USB Adapter to RPi
+Insert SDCard into RPZ
+Connect USB Hub to USB cable Adapter to RPZ
 Connect WiFi and KB/M to USB Hub
-Connect HDMI Cable to mini-HDMI Adapter to RPi
-Connect power to RPi
+Connect HDMI Cable to mini-HDMI Adapter to RPZ
+Connect power to RPZ
 
 ================= SECTION BREAK =======================
 { /// Connect to Wi-Fi network \\\ }
 { https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
 
-{ if using GUI, connect to your local network once RPi is powered on. Continue to next section => Setup RPi settings }
+{ if using GUI, connect to your local network once RasPi is powered on. 
+{ Continue with next section => Setup RPZ settings }
 
 { if using CLI, continue below }
 { If needed, Scan for available networks and look for ESSID as the network_name }
@@ -78,23 +35,19 @@ network={
 
 { \\\ END CODE /// }
 
-{ Restart RPi}
+{ Restart RasPi}
     $ sudo reboot
 
-{ Verify successful connection by running following code and if the inet addr field has an address beside it, the RPi has connected to the network. }
+{ Verify successful connection by running following code and if the inet addr field has an address beside it, the RasPi has connected to the network. }
     $ ifconfig wlan0
 
 { \\\ End of Wi-Fi network setup /// }
 
-{ Shutdown RPi}
-    $ sudo shutdown -h now
 
 
-{ At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable }
-{ Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0 }
 
 ================= SECTION BREAK =======================
-{ Setup RPi settings }
+{ Setup RPZ settings }
 
 (1) {GUI} Menu...Preferences...Raspberry Pi Configuration
 or
@@ -113,7 +66,7 @@ or
     (1) Interfaces
     (2) Advanced Options
 
-{ Rename the RPi computer } 
+{ Rename the RPZ computer } 
     (1) System...Hostname
     (2) Advanced Options...Hostname
 
@@ -123,23 +76,21 @@ or
 
     $ exit config 
 
+{ Reboot or Shutdown as desired }
     $ sudo reboot
+    
+    $ sudo shutdown-h now
+    
+{ At this point if you decide to continue with SSH/CLI, you can shutdown RasPi and remove USB Hub, KB/M and HDMI Cable }
+{ If using RPZ, Connect the WiFi dongle to either USB-to-MicroUSB adapter and connect directly to RPZ}
 
 ================= SECTION BREAK =======================
 { Find Updates, Apply Upgrades, then Clean-up }
 
     $ sudo apt-get update
     $ sudo apt-get dist-upgrade
-    $ sudo apt-get clean
     $ sudo apt-get install git
-
-================= SECTION BREAK =======================
-### CAYENNE INSTALL ###
-
-{ http://www.cayenne-mydevices.com/docs/#introduction
-{ Download Cayenne App https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
-
-\\\ END CAYENNE INSTALL ///
+    $ sudo apt-get clean
 
 ================= SECTION BREAK =======================
 ### WEBIOPI INSTALL ###
@@ -148,7 +99,7 @@ or
 { http://webiopi.trouch.com/INSTALL.html }
     $ cd /home/pi
 
-{ Required to access all 40 pins [new RPi layout] }
+{ Required to access all 40 pins [new Raspberry layout] }
 { https://github.com/thortex/rpi3-webiopi/wiki/HowToBuild }
 
 { download}
@@ -165,21 +116,24 @@ or
     $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
     $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
 
-
-
-
 { install}
     $ sudo ./setup.sh
 
+================= READ BELOW BEFORE INSTALL =======================
+
 { If you only need local network access to your setup or, }
 { If you want outside internet access to your setup and are comfortable with port forwarding, }
-{ Answer NO to internet access question if presented. Otherwise }
+{ Answer NO to internet access question if presented. OTHERWISE }
 { If yes is chosen, must follow instructions to install Weaved IoT Kit at http://webiopi.trouch.com/INSTALL.html }
+{ or you can utilize CAYENNE software at http://www.cayenne-mydevices.com/docs/#introduction }
+{ Download Cayenne App https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8 }
+
+{ I have no experience with either platform, so no additional guidance will be provided }
+
+================= READ ABOVE BEFORE INSTALL =======================
 
 { set WebIOPi to start at boot}
     $ sudo update-rc.d webiopi defaults
-
-    $ sudo reboot
 
 { To change or remove username & password to access WEBIOPI, }
 { http://webiopi.trouch.com/PASSWORD.html }
@@ -189,21 +143,26 @@ or
 
 { To remove, delete contents or delete file /etc/webiopi/passwd }
     $ sudo nano /etc/webiopi/passwd
+    $ sudo rm /etc/webiopi/passwd
 
 { Restart WebIOPi }
     $ sudo /etc/init.d/webiopi restart
+    
+{ Reboot RasPi }
+    $ sudo reboot
 
 \\\ END WEBIOPI INSTALL ///
 
-
 ================= SECTION BREAK =======================
-{ HTML files }
+{ Location of HTML files }
+{ The index.html should be left in place for WebIOPi. }
+{ It can be replaced, but it should be backed-up }
+{ Best practice would be to directly access your own HTML landing page i.e. door.html }
 
     $ cd /usr/share/webiopi/htdocs
 
 { Transfer project files }
 
-    $ cd /usr/share/webiopi/htdocs
     $ sudo wget https://www.dropbox.com/s/3lz5od3xyqxl17i/garage.html
     $ sudo wget https://www.dropbox.com/s/f3qfwvjqgzft16m/door-static.png
     $ sudo wget https://www.dropbox.com/s/xj93wymxebbthu0/door-action.gif
@@ -218,81 +177,24 @@ or
 
 ================= SECTION BREAK =======================
 { *** DOOR STATUS log *** }
+{ Code copied and edited from comments section of :
 { http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/ }
 
     $ cd /
-    $ sudo nano /usr/bin/garage_status
+    $ sudo nano /usr/bin/door_status
 
-{ /// COPY & PASTE FOLLOWING CODE \\\ }
-
-#!/bin/bash
-
-# Garage Log process started - Write today's date to log files
-# Using -printf- command to print line break to visualize reboot in log 
-#   - Alternatively, you can uncomment the following two lines to start new logs on every reboot
-
-# rm /usr/share/webiopi/htdocs/garage.log
-# rm /var/log/garage.log
-
-printf "\nPennyPupster Tracker started at " >> /var/log/garage.log
-date >> /var/log/garage.log
-
-printf "\nPennyPupster Tracker started at " >> /usr/share/webiopi/htdocs/garage.log
-date >> /usr/share/webiopi/htdocs/garage.log
-
-# GPIO 18 is used as the door sensor. Must be changed in two places if different (Lines 17 & 26)
-echo "18" > /sys/class/gpio/export
-
-# Loop this whole script
-while true
-
-do
-# Assign the previous value (stored in file /usr/bin/garage_state) & get the current status of GPIO pin
-# Make sure to update GPIO value to the door sensor
-STATE_PRV=$(</usr/bin/garage_state)
-STATE_CUR=$(</sys/class/gpio/gpio18/value)
-
-# ====================================
-# STATE_TEXT > go   = open
-# STATE_TEXT > stay = closed
-
-if [ $STATE_CUR = 1 ]
-then
-       STATE_TEXT='GO'
-else
-       STATE_TEXT='STAY'
-fi
-
-# ====================================
-if [ "$STATE_PRV" = "$STATE_CUR" ]
-then
-       sleep 5
-else
-       date >> /var/log/garage.log
-       echo "PennyPupster Tracker " $STATE_CUR >> /var/log/garage.log
-       echo " 1=Open, 0=Closed" >> /var/log/garage.log
-
-       STR1=$(date +%F)" "$(date +%R)
-       echo $STR1 "PENNY is" $STATE_TEXT >> /usr/share/webiopi/htdocs/garage.log
-
-       echo $STATE_CUR > /usr/bin/garage_state
-fi
-       date
-
-done
-
-{ \\\ END CODE /// }
+{ /// COPY & PASTE file contents from file Door_Status \\\ }
 
 { Make this script executable: }
-    $ sudo chmod 777 /usr/bin/garage_status
+    $ sudo chmod 777 /usr/bin/door_status
     $ cd /etc
     $ sudo nano rc.local
 
-{ add the following line just above “exit 0”, to have garage_status startup on bootup.}
+{ add the following line just above “exit 0”, to have door_status startup on bootup.}
 
 { /// COPY & PASTE FOLLOWING CODE \\\ }
 
-/usr/bin/garage_status > /dev/null 2>&1 &
+/usr/bin/door_status > /dev/null 2>&1 &
 
 { \\\ END CODE /// }
 
@@ -304,15 +206,16 @@ done
 
 
 ================= SECTION BREAK =======================
-{ to change dog pic, edit garage.html in three places, or you can just rename your images to doge-action.png & doge-static.png}
-background: #808080 url(‘doge-static.png’) no-repeat center bottom;
-document.getElementById(‘button’).style.background = “#808080 url(‘/doge-action.png’) no-repeat center bottom”;
-document.getElementById(‘button’).style.background = “#808080 url(‘/doge-static.png’) no-repeat center bottom”;
+{ To change images, you can rename your images to door-action.png & door-static.png }
+{ Alternatively, you can change the file names in the .css and .js files in three locations }
 
+background: #808080 url(‘door-static.png’) no-repeat center bottom;
+document.getElementById(‘button’).style.background = “#808080 url(‘/door-action.gif’) no-repeat center bottom”;
+document.getElementById(‘button’).style.background = “#808080 url(‘/door-static.png’) no-repeat center bottom”;
 
 
 ============= HARDWARE =============
-{ If Edimax Wi-fi Adapter keeps going to sleep, you can do the following to fix the issue }
+{ If Edimax Wi-fi Adapter keeps going to sleep, you can try the following to fix the issue }
 { https://www.raspberrypi.org/forums/viewtopic.php?t=61665 }
 
     $ sudo nano /etc/modprobe.d/8192cu.conf
@@ -323,8 +226,6 @@ document.getElementById(‘button’).style.background = “#808080 url(‘/doge
 options 8192cu rtw_power_mgnt=0 rtw_enusbss=0
 
 { \\\ END CODE /// }
-
-
 
 
 ================= SECTION BREAK =======================

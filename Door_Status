@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Door Log process started - Write today's date to log files
+# Using -printf \n - command to print line break to highlight reboot in log 
+#   - Alternatively, you can uncomment the following line to start new log on every reboot
+
+# rm /usr/share/webiopi/htdocs/door.log
+
+printf "\nDoorTracker started at " >> /usr/share/webiopi/htdocs/door.log
+date >> /usr/share/webiopi/htdocs/door.log
+
+# GPIO 18 is used as the door sensor. 
+# Must be changed in two places if different 
+# (Lines 16 & 27)
+
+echo "18" > /sys/class/gpio/export
+
+# Loop this whole script indefinitely
+while true
+
+do
+# Start loop. Assign previous status (stored in file /usr/bin/door_state) & 
+# get current status of GPIO pin. Verify GPIO to your door sensor.
+# If no change in state, pause then restart loop
+
+STATE_PRV=$(</usr/bin/door_state)
+STATE_CUR=$(</sys/class/gpio/gpio18/value)
+
+# ====================================
+
+if [ "$STATE_PRV" = "$STATE_CUR" ]
+then
+       sleep 5
+else
+
+# Create variable with current date & time in short format, &
+# update State_Text to current status, then
+# write date and current status text to log file.
+# Finally, write current status to previous status variable.
+
+       STR1=$(date +%F)" "$(date +%R)
+
+       if [ $STATE_CUR = 1 ]
+         then
+           STATE_TEXT='OPEN'
+         else
+           STATE_TEXT='CLOSED'
+       fi
+
+       echo $STR1 ": DOOR is" $STATE_TEXT >> /usr/share/webiopi/htdocs/door.log
+
+       echo $STATE_CUR > /usr/bin/door_state
+fi
+#       date
+
+done
+
+       echo $STATE_CUR > /usr/bin/garage_state
+fi
+       date
+
+done
