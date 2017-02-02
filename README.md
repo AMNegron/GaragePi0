@@ -1,4 +1,4 @@
-# GaragePiZero
+# DoorPiZero
 Raspberry Pi Zero / WebIOPi - based Garage Door Opener
 
  = Initial project idea =
