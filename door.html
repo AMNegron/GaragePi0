@@ -20,34 +20,57 @@
 
 <!-- End app icons code -->
 
-  <link rel="stylesheet" type="text/css" href="door.css">
+  <link rel="stylesheet" type="text/css" href="/door.css">
 
   <script src="/webiopi.js"> </script>
   
-  <script src="door.js"> </script>
+  <script src="/door.js"> </script>
 
 </head>
 
 <body>
-<!-- These two div lines create the header and the Open/Close button -->
+<!-- This div line creates the mainbutton title using 'header' & 'h2' in css -->
   <div id="header"> <h2> DOOR STATUS </h2>
     </div>
-  <div id="openCloseButton" style="margin-left: auto; margin-right: auto; position:relative">
+
+<!-- This div line creates door1 Open/Close button using 'sensor1' in css & js -->
+  <div id="sensor1" style="margin-left: auto; margin-right: auto; position:relative">
     </div>
     
-<!-- This line builds the main button -->
-  <div id="content" style="margin-left: auto; margin-right: auto; position:relative">
+<!-- This div line builds the main button using 'mainbtn' in css -->
+  <div id="mainbtn" style="margin-left: auto; margin-right: auto; position:relative">
     </div>
 
-<!-- These two div lines build the confirmation box/div -->
+<!-- This div line begins to build the confirmation box using 'confirmText, & 'h2' in css -->
   <div id="confirmText"><h2>Are you sure?</h2>
     </div>
+
+<!-- This div line ends building the confirmation box using 'yes, & 'no' in css -->
   <div id="confirmBox">
       <div id="yes" class="confirmButton">YES
         </div>
       <div id="no" class="confirmButton">NO
         </div>
     </div>
+
+<!-- Optional Light and Log buttons -->
+    
+<!-- This div line builds the main button using 'optionsBtn' in css -->
+  <div id="optionsBtn" style="margin-left: auto; margin-right: auto; position:relative">
+    </div>
+
+<!-- This div line begins to build the confirmation box using 'confirmText, & 'h2' in css -->
+  <div id="confirmText"><h2>Are you sure?</h2>
+    </div>
+
+<!-- This div line ends building the confirmation box using 'yes, & 'no' in css -->
+  <div id="confirmBox">
+      <div id="yes" class="confirmButton">YES
+        </div>
+      <div id="no" class="confirmButton">NO
+        </div>
+    </div>
+
 
 </body>
 </html>

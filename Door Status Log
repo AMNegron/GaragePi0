@@ -2,22 +2,22 @@
 { http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/ }
 
     $ cd /
-    $ sudo nano /usr/bin/garage_status
+    $ sudo nano /usr/bin/door_status
 
 { Make this script executable: }
-    $ sudo chmod 777 /usr/bin/garage_status
+    $ sudo chmod 777 /usr/bin/door_status
     $ cd /etc
     $ sudo nano rc.local
 
-{ add the following line just above “exit 0”, to have garage_status startup on bootup.}
+{ add the following line just above “exit 0”, to have door_status startup on bootup.}
 
 { /// COPY & PASTE FOLLOWING CODE \\\ }
 
-/usr/bin/garage_status > /dev/null 2>&1 &
+/usr/bin/door_status > /dev/null 2>&1 &
 
 { \\\ END CODE /// }
 
-{need to add code to edit garage.html to create link to garage.log}
+{need to add code to edit door.html to create link to door.log}
 
 { \\\ END DOOR STATUS modification /// }
 

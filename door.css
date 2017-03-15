@@ -4,19 +4,26 @@ body {
 			margin: 0px;
 			background: #CCCCCC;
 			}
-	
+
+h2 {
+			text-align: center;
+			margin-top: 0px !important;
+			margin-bottom: 10px !important;
+			}
+
 #header {
-			margin-left: auto;			margin-right: auto;
+			margin-left: auto;
+			margin-right: auto;
 			margin-top: 0px !important;
 			padding-top: 0px !important;
 			}
 	
-#openCloseButton {
+#sensor1 {
 			width: 300px;
 			height: 60px;
 			}
-	
-#content {
+
+#mainbtn {
 			width: 300px;
 			height: 250px;
 			}
@@ -50,9 +57,12 @@ body {
 			}
 
 #optionsBtn {
-			width: 200px;
+			width: 100px;
 			height: 30px;
 			}
+
+
+
 
 button {
 			display: block;
@@ -86,11 +96,7 @@ button#button {
 	
 
 
-h2 {
-                        text-align: center;
-                        margin-top: 0px !important;
-                        margin-bottom: 10px !important;
-	}
+
 
 
 .confirmButton {

@@ -2,14 +2,14 @@
 
 # Door Log process started - Write today's date to log files
 # Using -printf \n - command to print line break to highlight reboot in log 
-#   - Alternatively, you can uncomment the following line to start new log on every reboot
+#   - instead, you can uncomment the following line to start new log on every reboot
 
 # rm /usr/share/webiopi/htdocs/door.log
 
 printf "\nDoorTracker started at " >> /usr/share/webiopi/htdocs/door.log
 date >> /usr/share/webiopi/htdocs/door.log
 
-# GPIO 18 is used as the door sensor. 
+# GPIO 18 is used as door1 sensor
 # Must be changed in two places if different 
 # (Lines 16 & 27)
 
@@ -21,42 +21,36 @@ while true
 do
 # Start loop. Assign previous status (stored in file /usr/bin/door_state) & 
 # get current status of GPIO pin. Verify GPIO to your door sensor.
-# If no change in state, pause then restart loop
+# If no change in state, pause (sleep) then restart loop
 
-STATE_PRV=$(</usr/bin/door_state)
-STATE_CUR=$(</sys/class/gpio/gpio18/value)
+STATE1_PRV=$(</usr/bin/door1_state)
+STATE1_CUR=$(</sys/class/gpio/gpio18/value)
 
 # ====================================
 
-if [ "$STATE_PRV" = "$STATE_CUR" ]
+if [ "$STATE1_PRV" = "$STATE1_CUR" ]
 then
        sleep 5
 else
 
-# Create variable with current date & time in short format, &
-# update State_Text to current status, then
-# write date and current status text to log file.
-# Finally, write current status to previous status variable.
+# 41: Create variable with current date & time in short format, &
+# 43: update State_Text to current status, then
+# 50: write date and current status text to log file.
+# 52: Finally, write current status to previous status variable.
 
        STR1=$(date +%F)" "$(date +%R)
 
-       if [ $STATE_CUR = 1 ]
+       if [ $STATE1_CUR = 1 ]
          then
-           STATE_TEXT='OPEN'
+           STATE1_TEXT='OPEN'
          else
-           STATE_TEXT='CLOSED'
+           STATE1_TEXT='CLOSED'
        fi
 
-       echo $STR1 ": DOOR is" $STATE_TEXT >> /usr/share/webiopi/htdocs/door.log
+       echo $STR1 ": DOOR 1 is" $STATE1_TEXT >> /usr/share/webiopi/htdocs/door.log
 
-       echo $STATE_CUR > /usr/bin/door_state
+       echo $STATE1_CUR > /usr/bin/door1_state
 fi
 #       date
-
-done
-
-       echo $STATE_CUR > /usr/bin/garage_state
-fi
-       date
 
 done
