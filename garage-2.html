@@ -1,0 +1,347 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" />
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="height = device-height, width = device-width, user-scalable = no"/>
+
+<title> DOOR STATUS </title>
+
+<!-- This code adds app icons -->
+
+<!-- ANDROID -->
+<link rel="icon" sizes="192×192" href="/appicon.png">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- APPLE -->
+<link rel="apple-touch-startup-image" href="/appicon.png">
+<link rel="apple-touch-icon" href="/appicon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- .... -->
+
+<script type="text/javascript" src="/webiopi.js">
+    </script>
+
+<script type="text/javascript">
+    webiopi().ready(function() {
+        	var content, content2, button, content3, button3;
+		content  = $("#content");
+		content2 = $("#openCloseButton"); $(checkStatus);
+		content3 = $("#optionsBtn");
+
+	// GPIO 7 = Relay
+	// GPIO17 = Garage Light
+	// GPIO18 = Door Sensor
+	webiopi().setFunction(7,"in");
+	webiopi().setFunction(17,"out");
+	webiopi().setFunction(18,"in");
+		
+		
+        // create an "OPEN" labeled button for GPIO 18
+        button = webiopi().createGPIOButton(18, "");
+        content2.append(button); // append button to content div
+
+        // create main garage button that calls the ButtonPrsd function below
+        button = webiopi().createButton("button", "GARAGE DOOR", showConfirm );
+        content.append(button); // append button to content div
+
+        // create options button that calls the showOptions function below
+        button3 = webiopi().createButton("options", "OPTIONS", showOptions );
+        content3.append(button3); // append button to content div
+
+	// checks status of door sensor	
+	function checkStatus() {
+		if (	$('#gpio18').hasClass('LOW')){
+		    	$("#gpio18").html('CLOSED');
+			}else {
+		    	$("#gpio18").html('OPEN');
+			}
+		setTimeout(checkStatus,1000)
+		}
+
+		// gets called by the ButtonPrsd function below - sets gpio7 back to 'IN'
+		function ButtonRls() {
+			webiopi().setFunction(7,"in");
+		}
+
+        // hide the confirmation box div
+	    function hideConfirm() {
+            document.getElementById('confirmBox').style.visibility = "hidden";
+            document.getElementById('confirmText').style.visibility = "hidden";
+        }
+
+		// sets gpio7 to 'OUT' which will trip relay.  After .5 second, calls hideConfirm above.
+		// hides the confirmation div and changes door image
+		function ButtonPrsd() {
+            document.getElementById('button').style.background = "#808080 url('/door-action2.gif') no-repeat center top";
+			webiopi().setFunction(7,"out");
+			hideConfirm();
+			setTimeout(ButtonRls, 500);
+           	// Set time (in ms) to display action image ex: 12000
+			setTimeout(ImgNormal, 12000); 
+		}
+
+		// show confirmation div after pressing garage door button
+		function showConfirm() {
+			document.getElementById('yes').onclick = ButtonPrsd;
+			document.getElementById('no').onclick = hideConfirm;
+			document.getElementById('confirmBox').style.visibility = "visible";
+			document.getElementById('confirmText').style.visibility = "visible";
+		}
+				
+		// change action-image to normal
+		function ImgNormal() {
+			document.getElementById('button').style.background = "#808080 url('/door-static3.png') no-repeat center bottom";
+		}
+
+// The following functions are used for the options control display -->
+
+		// show options div after pressing OPTIONS button
+		function showOptions() {
+			document.getElementById('log').onclick = optionsLog;
+			document.getElementById('light').onclick = optionsLight;
+			document.getElementById('optionsBox').style.visibility = "visible";
+			document.getElementById('optionsText').style.visibility = "visible";
+		}				
+
+		// hide the optionsbox div
+		function hideOptions() {
+			document.getElementById('optionsBox').style.visibility = "hidden";
+			document.getElementById('optionsText').style.visibility = "hidden";
+        }
+
+        function optionsLog() {
+			hideOptions;
+			window.location.href = '/garage.log';
+		}
+
+		// Toggle Light Value
+        function optionsLight() {
+           	hideOptions;
+			webiopi().toggleValue(17);
+		}
+
+		// constantly refresh status to see if door is open or closed
+		webiopi().refreshGPIO(true)
+		}
+	);
+
+    </script>
+
+	<style type="text/css">
+		
+		body {
+			font-family: Arial, Helvetica, Sans-Serif;
+			padding: 0px;
+			margin: 0px;
+			background: #CCCCCC;
+		}
+
+		#content {
+			width: 300px;
+			height: 250px;
+		}
+		
+        	button {
+			display: block;
+			margin: 10px 10px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			width: 200px;
+			height: 50px;
+			font-size: 24pt;
+			font-weight: bold;
+			color: black;
+			border-radius: 10px !important;
+	        }
+		
+		button#button {
+			height: 250px !important;
+			background: #808080 url('door-static3.png') no-repeat center bottom;
+			border-radius: 10px !important;
+			cursor: pointer !important;
+		}
+
+		#gpio18.LOW {
+			color: #FFFFFF !important;
+		}
+
+		#gpio18.HIGH {
+			background-color: #00bfff;
+			color: #FFFFFF !important;
+		}
+
+		#header {
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 0px !important;
+			padding-top: 0px !important;
+		}
+
+		#confirmText {
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			margin-top: 0px;
+			visibility: hidden;
+			width: 300px;
+		}
+
+                h2 {
+                        text-align: center;
+                        margin-top: 0px !important;
+                        margin-bottom: 10px !important;
+                }
+
+		#doge {
+			width: 300px;
+			height: 80px;
+			position: absolute;
+			bottom: 0px;
+		}
+
+		#confirmBox {
+			height: 60px;
+			width: 200px;
+			margin-left: auto;
+			margin-right: auto;
+			position:relative;
+			visibility: hidden;
+		}
+
+		#yes {
+			background-color: green;
+			float: left;
+		}
+
+		#no {
+			background-color: red;
+			float: right;
+		}
+
+		.confirmButton {
+			border: 3px solid #000000;
+			border-radius: 10px;
+			cursor: pointer;
+			height: 50px;
+			width: 75px;
+			font-size: 24pt;
+	                font-weight: bold;
+			text-align: center;
+			line-height: 50px;
+		}
+
+		#openCloseButton {
+			width: 300px;
+			height: 60px;
+		}
+
+<!-- The following CSS defines the options control display -->
+
+        	options {
+			display: block;
+			margin: 10px 10px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0px;
+			width: 200px;
+			height: 30px;
+			font-size: 12pt;
+			font-weight: bold;
+			color: black;
+			border-radius: 10px !important;
+	        }
+		
+		options#options {
+			height: 200px !important;
+			background: #808080 no-repeat center bottom;
+			border-radius: 10px !important;
+			cursor: pointer !important;
+		}
+
+		#optionsBtn {
+			width: 200px;
+			height: 30px;
+		}
+
+                #optionsText {
+                        margin-left: auto;
+                        margin-right: auto;
+                        padding: 0px;
+                        margin-top: 0px;
+                        visibility: visible;
+                        width: 300px;
+                }
+
+                h3 {
+                        font-size: 12pt;
+                        text-align: center;
+                        margin-top: 0px;
+                        margin-bottom: 10px;
+                }
+
+                #optionsBox {
+                        height: 60px;
+                        width: 250px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        position:relative;
+                        visibility: visible;
+                }
+
+                #log {
+                        background-color: blue;
+			color: white;
+                        float: left;
+                }
+                #light {
+                        background-color: yellow;
+                        float: right;
+                }
+
+                .optionButton {
+                        border: 1px solid #000000;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        height: 30px;
+                        width: 75px;
+                        font-size: 16pt;
+                        font-weight: bold;
+                        text-align: center;
+                        line-height: 30px;
+                }
+
+	</style>
+</head>
+
+<body>
+<div id="header"><h2> DOOR STATUS </h2></div>
+<div id="openCloseButton" style="margin-left: auto; margin-right: auto; position:relative"></div>
+
+<! -- ################################################### -->
+<!-- If Door Status Log or Light control implemented, uncomment following lines as appropriate -->
+<!-- -->
+<div id="content3" style="margin-left: auto; margin-right: auto; position:relative"></div>
+
+<div id="optionsText"><h3> &lt CHOOSE &gt </h3></div>
+<div id="optionsBox">
+   <div id="log" class="optionButton">READ</div>
+   <div id="light" class="optionButton">SEE</div>
+</div>
+<! -- ################################################### -->
+
+<!-- This line builds the main button -->
+
+<div id="content" style="margin-left: auto; margin-right: auto; position:relative"></div>
+
+<!-- These two lines build the confirmation box/div -->
+<div id="confirmText"><h2>Are you sure?</h2></div>
+<div id="confirmBox">
+    <div id="yes" class="confirmButton">YES</div>
+    <div id="no" class="confirmButton">NO</div>
+</div>
+
+</body>
+</html>
