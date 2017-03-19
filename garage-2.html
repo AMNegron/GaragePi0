@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" />
 <html>
 <head>
@@ -25,9 +24,9 @@
     var content, sensor1btn, button;
   
   webiopi().setFunction(7,"in");   // GPIO 7 = Door Relay1
-  webiopi().setFunction(17,"out"); // GPIO17 = Light1
   webiopi().setFunction(18,"in");  // GPIO18 = Door Sensor1
-  
+  webiopi().setFunction(17,"out"); // GPIO17 = Light1
+    
   // create a 'null' button for sensor1
   sensor1btn = $("#sensor1"); $(checkStatus);
   button = webiopi().createGPIOButton(18, "");
@@ -69,10 +68,10 @@
   
   // show confirmation div after pressing garage door button
   function showConfirm() {
-    document.getElementById('confirmBox').style.visibility = "visible";
-    document.getElementById('confirmText').style.visibility = "visible";
     document.getElementById('yes').onclick = ButtonPrsd;
     document.getElementById('no').onclick = hideConfirm;
+    document.getElementById('confirmBox').style.visibility = "visible";
+    document.getElementById('confirmText').style.visibility = "visible";
   } // showConfirm
 
   // change action-image to normal
@@ -92,8 +91,7 @@
   
   ); // end ready action
   </script>
-    
-    
+  
  <style type="text/css">
   
   body {
@@ -173,17 +171,7 @@
     position:relative;
     visibility: hidden;
   }
-  
-  #yes {
-    background-color: green;
-    float: left;
-  }
-  
-  #no {
-    background-color: red;
-    float: right;
-  }
-  
+   
   .confirmButton {
     border: 3px solid #000000;
     border-radius: 10px;
@@ -195,6 +183,17 @@
     text-align: center;
     line-height: 50px;
   }
+   
+  #yes {
+    background-color: green;
+    float: left;
+  }
+  
+  #no {
+    background-color: red;
+    float: right;
+  }
+  
  </style>
  
 </head>
