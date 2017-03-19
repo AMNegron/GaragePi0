@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
 <meta name="viewport" content="height = device-height, width = device-width, user-scalable = no"/>
 <title> FETCH </title>
+
 <!-- This code adds app icons -->
 <!-- ANDROID -->
 <link rel="icon" href="/appicon.png">
@@ -15,245 +16,205 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <!-- ..END APP ICONS.. -->
+
 <script type="text/javascript" src="/webiopi.js">
-    </script>
+  </script>
+
 <script type="text/javascript">
-    webiopi().ready(function() {
-         var content, content2, button, content3, button3;
+  webiopi().ready(function() {
+    var content, sensor1btn, button;
+  
+  webiopi().setFunction(7,"in");   // GPIO 7 = Door Relay1
+  webiopi().setFunction(17,"out"); // GPIO17 = Light1
+  webiopi().setFunction(18,"in");  // GPIO18 = Door Sensor1
+  
+  // create a 'null' button for sensor1
+  sensor1btn = $("#sensor1"); $(checkStatus);
+  button = webiopi().createGPIOButton(18, "");
+  sensor1btn.append(button); // append button to content div
+
+  // create door button that calls the showConfirm function
   content  = $("#content");
-  content2 = $("#openCloseButton"); $(checkStatus);
- // GPIO 7 = Relay
- // GPIO17 = Garage Light
- // GPIO18 = Door Sensor
- webiopi().setFunction(7,"in");
- webiopi().setFunction(17,"out");
- webiopi().setFunction(18,"in");
+  button = webiopi().createButton("button", "FOR YOUR THOUGHTS", showConfirm );
+  content.append(button); // append button to content div
   
-  
-        // create an "OPEN" labeled button for GPIO 18
-        button = webiopi().createGPIOButton(18, "");
-        content2.append(button); // append button to content div
-        // create main garage button that calls the ButtonPrsd function below
-        button = webiopi().createButton("button", "FOR YOUR THOUGHTS", showConfirm );
-        content.append(button); // append button to content div
- // checks status of door sensor 
- function checkStatus() {
-  if ( $('#gpio18').hasClass('LOW')){
-       $("#gpio18").html('PUPSTER');
-   }else {
-       $("#gpio18").html('LUCKY');
-   }
-  setTimeout(checkStatus,1000)
+  // checks status of door sensor1
+  function checkStatus() {
+    if ( $('#gpio18').hasClass('LOW') )
+        { $("#gpio18").html('PUPSTER'); } // sensor1 text when closed
+    else { $("#gpio18").html('LUCKY'); }  // sensor1 text when open
+    setTimeout(checkStatus,1000)          // wait one second, then restart checkStatus
   }
-  // gets called by the ButtonPrsd function below - sets gpio7 back to 'IN'
-  function ButtonRls() {
-   webiopi().setFunction(7,"in");
-  }
-        // hide the confirmation box div
-     function hideConfirm() {
-            document.getElementById('confirmBox').style.visibility = "hidden";
-            document.getElementById('confirmText').style.visibility = "hidden";
-        }
-  // sets gpio7 to 'OUT' which will trip relay.  After .5 second, calls hideConfirm above.
-  // hides the confirmation div and changes door image
+
+  // sets relay1 to 'OUT' which will trip relay.  After .5 second, call ButtonRls.
+  // changes to action image. After 12 seconds, call ImgNormal.
   function ButtonPrsd() {
-            document.getElementById('button').style.background = "#808080 url('/door-action.gif') no-repeat center top";
-   webiopi().setFunction(7,"out");
-   hideConfirm();
-   setTimeout(ButtonRls, 500);
-            // Set time (in ms) to display action image ex: 13000
-   setTimeout(ImgNormal, 13000); 
-  }
+    webiopi().setFunction(7,"out");
+    setTimeout(ButtonRls, 500);
+    ImgAction();
+    setTimeout(ImgNormal, 12000);
+  } // ButtonPrsd
+  
+  // sets relay1 back to 'IN'
+  function ButtonRls() {
+    webiopi().setFunction(7,"in");
+    hideConfirm();
+  } // ButtonRls
+  
+  // hide the confirmation box div
+  function hideConfirm() {
+    document.getElementById('confirmBox').style.visibility = "hidden";
+    document.getElementById('confirmText').style.visibility = "hidden";
+  } // hideConfirm
+  
   // show confirmation div after pressing garage door button
   function showConfirm() {
-   document.getElementById('yes').onclick = ButtonPrsd;
-   document.getElementById('no').onclick = hideConfirm;
-   document.getElementById('confirmBox').style.visibility = "visible";
-   document.getElementById('confirmText').style.visibility = "visible";
-  }
-    
+    document.getElementById('confirmBox').style.visibility = "visible";
+    document.getElementById('confirmText').style.visibility = "visible";
+    document.getElementById('yes').onclick = ButtonPrsd;
+    document.getElementById('no').onclick = hideConfirm;
+  } // showConfirm
+
+  // change action-image to normal
+  function ImgAction() {
+    document.getElementById('button').style.background = "#808080 url('/door-action.gif') no-repeat center top";
+  } // ImgAction
+  
   // change action-image to normal
   function ImgNormal() {
-   document.getElementById('button').style.background = "#808080 url('/door-static.png') no-repeat center bottom";
-  }
-  // constantly refresh status to see if door is open or closed
+    document.getElementById('button').style.background = "#808080 url('/door-static.png') no-repeat center bottom";
+  } // ImgNormal
+  
+  // constantly refresh status to see if door(s) have changed state
   webiopi().refreshGPIO(true)
-  }
- );
-    </script>
+  
+  }  // end first function call
+  
+  ); // end ready action
+  </script>
     
-
-<style type="text/css">
+    
+ <style type="text/css">
   
-body {
-  font-family: Arial, Helvetica, Sans-Serif;
-  padding: 0px;
-  margin: 0px;
-  background: #CCCCCC;
-  }
-  
-#header {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0px !important;
-  padding-top: 0px !important;
-  }
-  
-h2 {
-  text-align: center;
-  margin-top: 0px !important;
-  margin-bottom: 10px !important;
-  }
-  
-  
-  
-  #content {
-   width: 300px;
-   height: 250px;
-  }
-  
-         button {
-   display: block;
-   margin: 10px 10px;
-   margin-left: auto;
-   margin-right: auto;
+  body {
+   font-family: Arial, Helvetica, Sans-Serif;
    padding: 0px;
-   width: 200px;
-   height: 50px;
-   font-size: 24pt;
-   font-weight: bold;
-   color: black;
-   border-radius: 10px !important;
-         }
+   margin: 0px;
+   background: #CCCCCC;
+  }
   
-  button#button {
-   height: 250px !important;
-   background: #808080 url('door-static.png') no-repeat center bottom;
-   border-radius: 10px !important;
-   cursor: pointer !important;
+  h2 {
+   text-align: center;
+   margin-top: 0px !important;
+   margin-bottom: 10px !important;
   }
-  #gpio18.LOW {
-   color: #FFFFFF !important;
-  }
-  #gpio18.HIGH {
-   background-color: #00bfff;
-   color: #FFFFFF !important;
-  }
-
-  #confirmText {
-   margin-left: auto;
-   margin-right: auto;
-   padding: 0px;
-   margin-top: 0px;
-   visibility: hidden;
-   width: 300px;
+  
+  #header {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
   }
                 
-  #doge {
-   width: 300px;
-   height: 80px;
-   position: absolute;
-   bottom: 0px;
+  #content {
+    width: 300px;
+    height: 250px;
   }
+  
+  button {
+    display: block;
+    margin: 10px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    width: 200px;
+    height: 50px;
+    font-size: 24pt;
+    font-weight: bold;
+    color: black;
+    border-radius: 10px !important;
+  }
+  
+  button#button {
+    height: 250px !important;
+    background: #808080 url('door-static.png') no-repeat center bottom;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+  }
+
+  #sensor1 {
+    width: 300px;
+    height: 60px;
+  }
+    
+  #gpio18.LOW {
+    color: #FFFFFF !important;
+  }
+  
+  #gpio18.HIGH {
+    background-color: #00bfff;
+    color: #FFFFFF !important;
+  }
+  
+  #confirmText {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    margin-top: 0px;
+    visibility: hidden;
+    width: 300px;
+  }
+  
   #confirmBox {
-   height: 60px;
-   width: 200px;
-   margin-left: auto;
-   margin-right: auto;
-   position:relative;
-   visibility: hidden;
+    height: 60px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    position:relative;
+    visibility: hidden;
   }
+  
   #yes {
-   background-color: green;
-   float: left;
+    background-color: green;
+    float: left;
   }
+  
   #no {
-   background-color: red;
-   float: right;
+    background-color: red;
+    float: right;
   }
+  
   .confirmButton {
-   border: 3px solid #000000;
-   border-radius: 10px;
-   cursor: pointer;
-   height: 50px;
-   width: 75px;
-   font-size: 24pt;
-                 font-weight: bold;
-   text-align: center;
-   line-height: 50px;
-  }
-  #openCloseButton {
-   width: 300px;
-   height: 60px;
+    border: 3px solid #000000;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 50px;
+    width: 75px;
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
   }
  </style>
  
 </head>
-
-
 <body>
-
-<!-- This div line creates the page title using 'header' & 'h2' in css -->
-  <div id="header"> <h2> DOOR STATUS </h2>
-    </div>
-    
-<div id="openCloseButton" style="margin-left: auto; margin-right: auto; position:relative"></div>
-
-<!-- This div line creates door1 Open/Close button using 'sensor1' in css & js -->
-  <div id="sensor1" style="margin-left: auto; margin-right: auto; position:relative">
-    </div>
-
-
+<div id="header"><h2> PENNY </h2>
+  </div>
+  
+<div id="sensor1" style="margin-left: auto; margin-right: auto; position:relative">
+  </div>
+  
 <!-- This line builds the main button -->
-<div id="content" style="margin-left: auto; margin-right: auto; position:relative"></div>
+<div id="content" style="margin-left: auto; margin-right: auto; position:relative">
+  </div>
+  
 <!-- These two lines build the confirmation box/div -->
-<div id="confirmText"><h2>Are you sure?</h2></div>
+<div id="confirmText"><h2>Are you sure?</h2>
+  </div>
 <div id="confirmBox">
     <div id="yes" class="confirmButton">YES</div>
     <div id="no" class="confirmButton">NO</div>
-</div>
+  </div>
 </body>
 </html>
-
-
-body>
-
-
-    
-<!-- This div line builds the main button using 'mainbtn' in css -->
-  <div id="mainbtn" style="margin-left: auto; margin-right: auto; position:relative">
-    </div>
-
-<!-- This div line begins to build the confirmation box using 'confirmText, & 'h2' in css -->
-  <div id="confirmText"><h2>Are you sure?</h2>
-    </div>
-
-<!-- This div line ends building the confirmation box using 'yes, & 'no' in css -->
-  <div id="confirmBox">
-      <div id="yes" class="confirmButton">YES
-        </div>
-      <div id="no" class="confirmButton">NO
-        </div>
-    </div>
-
-<!-- Optional Light and Log buttons -->
-    
-<!-- This div line builds the main button using 'optionsBtn' in css -->
-  <div id="optionsBtn" style="margin-left: auto; margin-right: auto; position:relative">
-    </div>
-
-<!-- This div line begins to build the confirmation box using 'confirmText, & 'h2' in css -->
-  <div id="optionsText"><h2>Are you sure?</h2>
-    </div>
-
-<!-- This div line ends building the confirmation box using 'yes, & 'no' in css -->
-  <div id="optionsBox">
-      <div id="log" class="logbtn">LOG
-        </div>
-      <div id="lite" class="litebtn">LITE
-        </div>
-    </div>
-
-
-</body>
-</html>
