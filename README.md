@@ -53,4 +53,4 @@ https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for commen
 - 1 10k Ohm resistor {required for magnetic switch}
 - 1 1k Ohm resistor {required for magnetic switch}
 
-### Steps to Replicate continues in Install.txt ###
+### Continue with > How to make your own DoorPiZero < ###
