@@ -1,54 +1,10 @@
-﻿ = Initial install project = 
-http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/
-
- = Alternate project = 
-http://itsbrent.net/2013/03/hacking-my-garage-with-a-raspberry-pi/
-
- = WebIOPi patch for new-gen (40pin) =
-https://github.com/thortex/rpi3-webiopi
-
- = Apple Siri integration =
-http://devpost.com/software/homekit-garage-door-opener
-
- = Notifications =
-http://www.richlynch.com/2013/07/27/pi_garage_alert_1/
-
-
- = Other Attempts =
-https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=8429&start=25
-https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for comments by danjperron » Wed Jan 06, 2016 8:22 pm}
-
-
-
-### Steps to Replicate ###
-
-Parts List
-
-- Raspberry Pi Zero 1.3
-- Zero Case
-- Wi-Fi USB dongle
-- micro-USB adapter { 
-- Micro-USB Charger 
-- Micro SD Card 
-- One 2x20-Pin header box or five-six 1-Pin headers 
-
-- micro-USB (male) to USB (female) cable { Used for hub during initial setup; can be used for wifi during final installation }
-- USB Hub { At least 2 ports, used during intial setup for wifi and keyboard/mouse }
-- mini-HDMI to HDMI adapter { For initial setup; Can SSH after initial setup }
-
-- Relay switch 
-- Female-to-Female Jumper Wires
-- Male-to-Female Jumper wires
-- Wire Nuts
-- 2-conductor cable ~20-24 gauge wire (CAT6 cable works good)  
-- Magnetic Switch {optional}
-- 1 10k Ohm resistor {required for magnetic switch}
-- 1 1k Ohm resistor {required for magnetic switch}
+### How to make your own DoorPiZero ###
 
 ============= SOFTWARE =============
 
-Download latest stable Raspian {during the inital writing of this guide, Jessie Lite was used}
-
+Download latest stable Raspian {during the inital writing of this guide, Jessie was used}
+   https://www.raspberrypi.org/downloads/
+   
 Write .img file to SDCard
 Insert SDCard into RPi
 Connect USB Hub to USB Adapter to RPi
@@ -56,13 +12,12 @@ Connect WiFi and KB/M to USB Hub
 Connect HDMI Cable to mini-HDMI Adapter to RPi
 Connect power to RPi
 
-================= SECTION BREAK =======================
-{ /// Connect to Wi-Fi network \\\ }
+========== /// Connect to Wi-Fi network \\\ ==========
 { https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
 
 { if using GUI, connect to your local network once RPi is powered on. Continue to next section => Setup RPi settings }
 
-{ if using CLI, continue below }
+{ if using CLI/terminal, continue below }
 { If needed, Scan for available networks and look for ESSID as the network_name }
     $ sudo iwlist wlan0 scan
 
@@ -70,12 +25,11 @@ Connect power to RPi
     $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
 { /// COPY & PASTE FOLLOWING CODE \\\ to the end of the wpa_supplicant.conf file }
-
 network={
     ssid="network_name"
     psk="wifi_password"
+    key_mgmt=WPA-PSK
 }
-
 { \\\ END CODE /// }
 
 { Restart RPi}
@@ -84,17 +38,15 @@ network={
 { Verify successful connection by running following code and if the inet addr field has an address beside it, the RPi has connected to the network. }
     $ ifconfig wlan0
 
-{ \\\ End of Wi-Fi network setup /// }
+{ \\\ End of CLI Wi-Fi network setup /// }
 
 { Shutdown RPi}
     $ sudo shutdown -h now
 
-
 { At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable }
 { Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0 }
 
-================= SECTION BREAK =======================
-{ Setup RPi settings }
+========== Setup RPi settings ==========
 
 (1) {GUI} Menu...Preferences...Raspberry Pi Configuration
 or
@@ -102,7 +54,7 @@ or
     $ sudo raspi-config
 
 { Change User Password - HIGHLY recommended!! }
-{ Expand FileSystem to utilize entire SD Card - Recommended }
+{ Change Boot option to CLI - recommended }
 { Change Boot option to auto-login - if desired}
     (1) System
     (2) Main Menu
@@ -173,7 +125,8 @@ or
 
 { If you only need local network access to your setup or, }
 { If you want outside internet access to your setup and are comfortable with port forwarding, }
-{ Answer NO to internet access question if presented. Otherwise }
+{ Answer NO to internet access question if presented. }
+{ Otherwise... }
 { If yes is chosen, must follow instructions to install Weaved IoT Kit at http://webiopi.trouch.com/INSTALL.html }
 
 { set WebIOPi to start at boot}
@@ -197,7 +150,7 @@ or
 
 
 ================= SECTION BREAK =======================
-{ HTML files }
+{ HTML files located at ... }
 
     $ cd /usr/share/webiopi/htdocs
 
