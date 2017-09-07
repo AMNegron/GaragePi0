@@ -2,15 +2,14 @@
 
 ============= SOFTWARE =============
 
-Download latest stable Raspian {during the inital writing of this guide, Jessie was used}
+- Download latest stable Raspian {during the inital writing of this guide, Jessie was used}
    https://www.raspberrypi.org/downloads/
-   
-Write .img file to SDCard
-Insert SDCard into RPi
-Connect USB Hub to USB Adapter to RPi
-Connect WiFi and KB/M to USB Hub
-Connect HDMI Cable to mini-HDMI Adapter to RPi
-Connect power to RPi
+- Write .img file to SDCard
+- Insert SDCard into RPi
+- Connect USB Hub to USB Adapter to RPi
+- Connect WiFi and KB/M to USB Hub
+- Connect HDMI Cable to mini-HDMI Adapter to RPi
+- Connect power to RPi
 
 ========== /// Connect to Wi-Fi network \\\ ==========
 { https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
