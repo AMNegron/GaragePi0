@@ -10,6 +10,8 @@ http://itsbrent.net/2013/03/hacking-my-garage-with-a-raspberry-pi/
  = WebIOPi patch for new-gen (40pin) =
 https://github.com/thortex/rpi3-webiopi
 
+Still to do...
+
  = Experimental Apple Siri integration =
 http://devpost.com/software/homekit-garage-door-opener
 
@@ -17,20 +19,19 @@ http://devpost.com/software/homekit-garage-door-opener
 http://www.richlynch.com/2013/07/27/pi_garage_alert_1/
 
  = Other Attempts to update WebIOPi =
-https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=8429&start=25
-
-https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for comments by danjperron » Wed Jan 06, 2016 8:22 pm}
+    - https://www.raspberrypi.org/forums/viewtopic.php?f=32&t=8429&start=25
+    - https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=98981 } {look for comments by danjperron » Wed Jan 06, 2016 8:22 pm}
 
 ### Parts List ###
 
 - Raspberry Pi Zero 1.3 (RPZ)
 - Zero Case
-- Wi-Fi USB dongle { Not required for Raspberry Pi 3 }
+- Wi-Fi USB dongle { Not required for Raspberry Pi 3 or Pi Zero W}
   -- micro-USB adapter {cable-less adapter}
 - Micro-USB Charger 
 - Micro SD Card 
 - One 2x20-Pin header box or five-six 1-Pin headers
-  { Only required Raspberry Pi Zero }
+  { Required for Raspberry Pi Zero }
 
 - micro-USB (male) to USB (female) cable adapter
   { Used for hub during initial setup; }
