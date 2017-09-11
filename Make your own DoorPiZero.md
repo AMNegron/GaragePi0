@@ -109,19 +109,19 @@ https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1
 
 * New Rasberrys require to access to 40-pins and a modified/branch of WebIOPi is available below:
   * {download}
->    $ wget http://sourceforge.net/projects/webiopi/files/WebIOPi-0.7.1.tar.gz
+  >    $ wget http://sourceforge.net/projects/webiopi/files/WebIOPi-0.7.1.tar.gz
   * {unzip}
->    $ tar xvzf WebIOPi-0.7.1.tar.gz
+  >    $ tar xvzf WebIOPi-0.7.1.tar.gz
   * {Patch}
->   $ cd
-    $ git clone https://github.com/acrobotic/Ai_Demos_RPi
-    $ cd WebIOPi-0.7.1
-    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_cpu_support.patch 
-    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
-    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
-
+  >   $ cd
+  >   $ git clone https://github.com/acrobotic/Ai_Demos_RPi
+  >   $ cd WebIOPi-0.7.1
+  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_cpu_support.patch 
+  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
+  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
+  
    * {install}
->    $ sudo ./setup.sh
+  >   $ sudo ./setup.sh
 
 If you only need local network access to your setup or,
 If you want outside internet access to your setup and are comfortable with port forwarding,
