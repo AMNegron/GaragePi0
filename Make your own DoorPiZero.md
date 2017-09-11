@@ -33,7 +33,7 @@
 ### \\\ END CODE /// ###
 
 * Restart RPi
-      >$ sudo reboot
+      >$ sudo reboot 
 
 * Verify successful connection by running following code
   * If the inet addr field has an address beside it, the RPi has connected to the network
