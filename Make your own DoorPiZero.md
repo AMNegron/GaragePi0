@@ -14,33 +14,33 @@
 ========== /// Connect to Wi-Fi network \\\ ==========
 { https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
 
-{ if using GUI, connect to your local network once RPi is powered on. Continue to next section => Setup RPi settings }
+- If using GUI, connect to your local network once RPi is powered on. 
+  -- Continue to next section => # Setup RPi Settings #
 
-{ if using CLI/terminal, continue below }
-{ If needed, Scan for available networks and look for ESSID as the network_name }
-    $ sudo iwlist wlan0 scan
+- If using CLI/terminal, continue below
+  -- If needed, Scan for available networks and look for ESSID as the network_name
+      $ sudo iwlist wlan0 scan
 
-{ Edit wps_supplicant.conf file, specify SSID and password for your network }
-    $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+  -- Edit wps_supplicant.conf file, specify SSID and password for your network
+      $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
 { /// COPY & PASTE FOLLOWING CODE \\\ to the end of the wpa_supplicant.conf file }
-network={
-    ssid="network_name"
-    psk="wifi_password"
-    key_mgmt=WPA-PSK
-}
+      network={
+         ssid="network_name"
+         psk="wifi_password"
+         key_mgmt=WPA-PSK
+      }
 { \\\ END CODE /// }
 
-{ Restart RPi}
-    $ sudo reboot
+- Restart RPi
+      $ sudo reboot
 
-{ Verify successful connection by running following code and if the inet addr field has an address beside it, the RPi has connected to the network. }
-    $ ifconfig wlan0
+- Verify successful connection by running following code
+  -- If the inet addr field has an address beside it, the RPi has connected to the network.
+      $ ifconfig wlan0
 
-{ \\\ End of CLI Wi-Fi network setup /// }
-
-{ Shutdown RPi}
-    $ sudo shutdown -h now
+- Shutdown RPi
+      $ sudo shutdown -h now
 
 { At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable }
 { Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0 }
