@@ -12,7 +12,7 @@
 - Connect power to RPi
 
 ========== /// Connect to Wi-Fi network \\\ ==========
-{ https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md }
+https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
 - If using GUI, connect to your local network once RPi is powered on. 
   -- Continue to next section => # Setup RPi Settings #
@@ -24,13 +24,13 @@
   -- Edit wps_supplicant.conf file, specify SSID and password for your network
       $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
-{ /// COPY & PASTE FOLLOWING CODE \\\ to the end of the wpa_supplicant.conf file }
+/// COPY & PASTE FOLLOWING CODE \\\ to the end of the wpa_supplicant.conf file
       network={
          ssid="network_name"
          psk="wifi_password"
          key_mgmt=WPA-PSK
       }
-{ \\\ END CODE /// }
+\\\ END CODE ///
 
 - Restart RPi
       $ sudo reboot
