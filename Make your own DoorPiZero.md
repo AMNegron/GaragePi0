@@ -1,43 +1,42 @@
-### How to make your own DoorPiZero ###
+## How to make your own DoorPiZero ##
 
-============= SOFTWARE =============
-
-- Download latest stable Raspian {during the inital writing of this guide, Jessie was used}
+***============= SOFTWARE =============***
+1. Download latest stable Raspian {during the inital writing of this guide, Jessie was used}
    https://www.raspberrypi.org/downloads/
-- Write .img file to SDCard
-- Insert SDCard into RPi
-- Connect USB Hub to USB Adapter to RPi
-- Connect WiFi and KB/M to USB Hub
-- Connect HDMI Cable to mini-HDMI Adapter to RPi
-- Connect power to RPi
+2. Write .img file to SDCard
+3. Insert SDCard into RPi
+4. Connect USB Hub to USB Adapter to RPi
+5. Connect WiFi and KB/M to USB Hub
+6. Connect HDMI Cable to mini-HDMI Adapter to RPi
+7. Connect power to RPi
 
-========== /// Connect to Wi-Fi network \\\ ==========
-https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
+*=== /// Connect to Wi-Fi network \\\ ===*
+   https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
-- If using GUI, connect to your local network once RPi is powered on. 
-  -- Continue to next section => # Setup RPi Settings #
+* If using GUI, connect to your local network once RPi is powered on. 
+  * Continue to next section => # Setup RPi Settings #
 
-- If using CLI/terminal, continue below
-  -- If needed, Scan for available networks and look for ESSID as the network_name
-      $ sudo iwlist wlan0 scan
+* If using CLI/terminal, continue below
+  * If needed, Scan for available networks and look for ESSID as the network_name
+      >$ sudo iwlist wlan0 scan
 
   -- Edit wps_supplicant.conf file, specify SSID and password for your network
-      $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+      >$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
-/// COPY & PASTE FOLLOWING CODE .. to the end of the wpa_supplicant.conf file \\\
-      network={
-         ssid="network_name"
-         psk="wifi_password"
-         key_mgmt=WPA-PSK
-      }
-\\\ END CODE ///
+### /// COPY & PASTE FOLLOWING CODE .. to the end of the wpa_supplicant.conf file \\\ ###
+      >network={
+      >   ssid="network_name"
+      >   psk="wifi_password"
+      >   key_mgmt=WPA-PSK
+      >}
+### \\\ END CODE /// ###
 
-- Restart RPi
-      $ sudo reboot
+* Restart RPi
+      >$ sudo reboot
 
-- Verify successful connection by running following code
-  -- If the inet addr field has an address beside it, the RPi has connected to the network.
-      $ ifconfig wlan0
+* Verify successful connection by running following code
+  * If the inet addr field has an address beside it, the RPi has connected to the network.
+      >$ ifconfig wlan0
 
 - Shutdown RPi
       $ sudo shutdown -h now
