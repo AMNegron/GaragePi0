@@ -10,9 +10,9 @@
 6. Connect HDMI Cable to mini-HDMI Adapter to RPi
 7. Connect power to RPi
 
-*=== /// Connect to Wi-Fi network \\\ ===*
+**=== /// Connect to Wi-Fi network \\\ ===**
 
-Additional details at https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
+*Additional details at https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md*
 
 * If using GUI, connect to your local network once RPi is powered on. 
   * Continue to next section => # Setup RPi Settings #
