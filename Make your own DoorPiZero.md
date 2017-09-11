@@ -91,22 +91,22 @@ or
 
 >$ sudo apt-get install git    
     
-/// SECTION BREAK - CAYENNE INSTALL \\\
+*** /// SECTION BREAK - CAYENNE INSTALL \\\
 
-Download Cayenne App
-
+For more information...
 http://www.cayenne-mydevices.com/docs/#introduction
 
+Download Cayenne App...
 https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
 
-\\\ END CAYENNE INSTALL ///
+*** \\\ END CAYENNE INSTALL ///
 
-================= SECTION BREAK =======================
-### WEBIOPI INSTALL ###
+### === SECTION BREAK - WEBIOPI INSTALL === ###
 
-{ /// Install WebIOPi \\\ }
-{ http://webiopi.trouch.com/INSTALL.html }
-    $ cd /home/pi
+***/// Install WebIOPi ===***
+http://webiopi.trouch.com/INSTALL.html
+
+    >$ cd /home/pi
 
 { Required to access all 40 pins [new RPi layout] }
 { https://github.com/thortex/rpi3-webiopi/wiki/HowToBuild }
