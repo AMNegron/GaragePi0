@@ -10,7 +10,7 @@
 6. Connect HDMI Cable to mini-HDMI Adapter to RPi
 7. Connect power to RPi
 
-**=== /// Connect to Wi-Fi network \\\ ===**
+**=== /// Connect to Wi-Fi network ===**
 
 *Additional details at https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md*
 
@@ -45,44 +45,48 @@
 * At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable
 * Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0
 
-**=== Setup RPi settings ===**
+**=== /// Setup RPi settings ===**
 
-(1) {GUI} Menu...Preferences...Raspberry Pi Configuration
+* If using (1) {GUI} ...
+  * Menu...Preferences...Raspberry Pi Configuration
 or
-(2) {CLI} 
-    $ sudo raspi-config
+* If using (2) {CLI} ...
+  >$ sudo raspi-config
 
-{ Change User Password - HIGHLY recommended!! }
-{ Change Boot option to CLI - recommended }
-{ Change Boot option to auto-login - if desired}
-    (1) System
-    (2) Main Menu
+* Under ...
+  * (1) System
+  * (2) Main Menu
+    * Change User Password - HIGHLY recommended!!
+    * Change Boot option to CLI - recommended
+    * Change Boot option to auto-login - if desired
 
-{ Enable SSH - HIGHLY recommended!! }
-{ Enable Remote GPIO Server }
-{ Enable VNC server if desired } 
-    (1) Interfaces
-    (2) Advanced Options
+* Under ...
+  * (1) Interfaces
+  * (2) Advanced Options
+    * Enable SSH - HIGHLY recommended!!
+    * Enable Remote GPIO Server
+    * Enable VNC server if desired
 
-{ Rename the RPi computer } 
-    (1) System...Hostname
-    (2) Advanced Options...Hostname
+* Under ...
+  * (1) System...Hostname
+  * (2) Advanced Options...Hostname
+    * Rename the RPi computer
 
-{ Change Localizations - Time Zone, Keyboard Layout, Wi-Fi }
-    (1) Localisation
-    (2) Main Menu
+* Under ...
+  * (1) Localisation
+  * (2) Main Menu
+    * Change Localizations - Time Zone, Keyboard Layout, Wi-Fi
 
-    $ exit config 
+>$ exit config 
 
-    $ sudo reboot
+>$ sudo reboot
 
-================= SECTION BREAK =======================
-{ Find Updates, Apply Upgrades, then Clean-up }
-
-    $ sudo apt-get update
-    $ sudo apt-get dist-upgrade
-    $ sudo apt-get clean
-    $ sudo apt-get install git
+**=== /// SECTION BREAK ===**
+* Find Updates, Apply Upgrades, then Clean-up }
+    >$ sudo apt-get update
+    >$ sudo apt-get dist-upgrade
+    >$ sudo apt-get clean
+    >$ sudo apt-get install git
 
 ================= SECTION BREAK =======================
 ### CAYENNE INSTALL ###
