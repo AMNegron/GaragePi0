@@ -36,16 +36,16 @@
    >$ sudo reboot
    
 * Verify successful connection by running following code
- * If the inet addr field has an address beside it, the RPi has connected to the network
+   * If the inet addr field has an address beside it, the RPi has connected to the network
    >$ ifconfig wlan0
 
 * Shutdown RPi
    >$ sudo shutdown -h now
 
-{ At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable }
-{ Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0 }
+* At this point if you decide to continue with SSH/CLI, you can shutdown RPi and remove USB Hub, KB/M and HDMI Cable
+* Connect the WiFi dongle to the USB-to-MicroUSB adapter and connect to RPi0
 
-========== Setup RPi settings ==========
+**=== Setup RPi settings ===**
 
 (1) {GUI} Menu...Preferences...Raspberry Pi Configuration
 or
