@@ -82,11 +82,7 @@ or
 >$ sudo reboot
 
 **=== /// SECTION BREAK ===**
-* Find Updates, Apply Upgrades, then Clean-up }
-    >$ sudo apt-get update
-    >$ sudo apt-get dist-upgrade
-    >$ sudo apt-get clean
-    >$ sudo apt-get install git
+* Find Updates, Apply Upgrades, then Clean-up
 
 ================= SECTION BREAK =======================
 ### CAYENNE INSTALL ###
