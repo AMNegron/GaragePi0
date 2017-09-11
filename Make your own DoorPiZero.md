@@ -83,12 +83,21 @@ or
 
 **=== /// SECTION BREAK ===**
 * Find Updates, Apply Upgrades, then Clean-up
+>$ sudo apt-get update
 
-================= SECTION BREAK =======================
-### CAYENNE INSTALL ###
+>$ sudo apt-get dist-upgrade
 
-{ http://www.cayenne-mydevices.com/docs/#introduction
-{ Download Cayenne App https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
+>$ sudo apt-get clean
+
+>$ sudo apt-get install git    
+    
+/// SECTION BREAK - CAYENNE INSTALL \\\
+
+Download Cayenne App
+
+http://www.cayenne-mydevices.com/docs/#introduction
+
+https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
 
 \\\ END CAYENNE INSTALL ///
 
