@@ -24,7 +24,7 @@ https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
   -- Edit wps_supplicant.conf file, specify SSID and password for your network
       $ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
-/// COPY & PASTE FOLLOWING CODE \\\ to the end of the wpa_supplicant.conf file
+/// COPY & PASTE FOLLOWING CODE .. to the end of the wpa_supplicant.conf file \\\
       network={
          ssid="network_name"
          psk="wifi_password"
