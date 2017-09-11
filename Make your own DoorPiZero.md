@@ -91,7 +91,7 @@ or
 
 >$ sudo apt-get install git    
     
-*** /// SECTION BREAK - CAYENNE INSTALL \\\
+*** === SECTION BREAK - CAYENNE === ###
 
 For more information...
 http://www.cayenne-mydevices.com/docs/#introduction
@@ -99,46 +99,38 @@ http://www.cayenne-mydevices.com/docs/#introduction
 Download Cayenne App...
 https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1&mt=8
 
-*** \\\ END CAYENNE INSTALL ///
+*** \\\ END CAYENNE INSTALL /// ***
 
-### === SECTION BREAK - WEBIOPI INSTALL === ###
+### === SECTION BREAK - WEBIOPI === ###
+>$ cd /home/pi
 
-***/// Install WebIOPi ===***
-http://webiopi.trouch.com/INSTALL.html
+* Basic WebIOPi (28-pin) can be installed:
+  * Detailed Instructions available at http://webiopi.trouch.com/INSTALL.html
 
-    >$ cd /home/pi
-
-{ Required to access all 40 pins [new RPi layout] }
-{ https://github.com/thortex/rpi3-webiopi/wiki/HowToBuild }
-
-{ download}
-    $ wget http://sourceforge.net/projects/webiopi/files/WebIOPi-0.7.1.tar.gz
-
-{ unzip}
-    $ tar xvzf WebIOPi-0.7.1.tar.gz
-
-{ Patch}
-    $ cd
+* New Rasberrys require to access to 40-pins and a modified/branch of WebIOPi is available below:
+  * {download}
+>    $ wget http://sourceforge.net/projects/webiopi/files/WebIOPi-0.7.1.tar.gz
+  * {unzip}
+>    $ tar xvzf WebIOPi-0.7.1.tar.gz
+  * {Patch}
+>   $ cd
     $ git clone https://github.com/acrobotic/Ai_Demos_RPi
     $ cd WebIOPi-0.7.1
     $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_cpu_support.patch 
     $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
     $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
 
+   * {install}
+>    $ sudo ./setup.sh
 
+If you only need local network access to your setup or,
+If you want outside internet access to your setup and are comfortable with port forwarding,
+  Answer NO to internet access question if presented.
+Otherwise...
+If YES is chosen, must follow instructions to install Weaved IoT Kit at http://webiopi.trouch.com/INSTALL.html 
 
-
-{ install}
-    $ sudo ./setup.sh
-
-{ If you only need local network access to your setup or, }
-{ If you want outside internet access to your setup and are comfortable with port forwarding, }
-{ Answer NO to internet access question if presented. }
-{ Otherwise... }
-{ If yes is chosen, must follow instructions to install Weaved IoT Kit at http://webiopi.trouch.com/INSTALL.html }
-
-{ set WebIOPi to start at boot}
-    $ sudo update-rc.d webiopi defaults
+   * {Start WebIOPi at boot}
+>    $ sudo update-rc.d webiopi defaults
 
     $ sudo reboot
 
