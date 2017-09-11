@@ -113,13 +113,13 @@ https://itunes.apple.com/us/app/cayenne-connect-create-control/id1057997711?ls=1
   * {unzip}
   >    $ tar xvzf WebIOPi-0.7.1.tar.gz
   * {Patch}
-  >   $ cd
-  >   $ git clone https://github.com/acrobotic/Ai_Demos_RPi
-  >   $ cd WebIOPi-0.7.1
-  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_cpu_support.patch 
-  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
-  >   $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
-  
+\###   $ cd
+    $ git clone https://github.com/acrobotic/Ai_Demos_RPi
+    $ cd WebIOPi-0.7.1
+    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_cpu_support.patch 
+    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_40_pin.patch 
+    $ patch -p0 -i ~/Ai_Demos_RPi/demos/gpio/webiopi_raspberry_pi_2_gpio_mapping.patch
+###/  
    * {install}
   >   $ sudo ./setup.sh
 
