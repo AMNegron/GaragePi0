@@ -4,6 +4,9 @@ Raspberry Pi Zero / WebIOPi - based Garage Door Opener
  = Initial project idea =
 http://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/
 
+ = Updated Two Door with Open Alerts
+https://github.com/jchan1234/Garage-Door-Opener-Raspberry-Pi/blob/master/README.md
+ 
  = Alternate project = 
 http://itsbrent.net/2013/03/hacking-my-garage-with-a-raspberry-pi/
 
