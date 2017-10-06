@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Starting Door Log process - Write current date to log files
-# Using -printf- command to print line break to highlight reboot in log 
+# Using -printf- command to print line break to highlight restart in log 
 #   - Alternatively, you can uncomment the following two lines 
 #     to start new logs on every reboot
 
@@ -12,44 +12,50 @@ printf "\nDoorPi Tracker restarted at " >> /usr/share/webiopi/htdocs/door.log
 date >> /usr/share/webiopi/htdocs/door.log
 
 # GPIO 18 is used as Door sensor1. Additional sensors can be added...
-# the following lines need to be added and properly mapped.
+# GPIO# must be changed in two places if different (Lines 18 & 29), 
+# Lines 18 & 29 must be duplicated for each additional sensor.
 
-# These must be changed in two places if different (Lines 18 & 29)
 echo "18" > /sys/class/gpio/export
 
-# Loop this whole script
+# Loop the remaining portion of this script
 while true
-do
+       do
 
 # Assign the previous value (stored in file /usr/bin/Door1_state) & 
 # get the current status of GPIO pin
-# Make sure to update GPIO value to the door sensor
+# Make sure to update GPIO value to each sensor used
 
-STATE1_PRV=$(</usr/bin/Door1_state)
-STATE1_CUR=$(</sys/class/gpio/gpio18/value)
+       STATE1_PRV=$(</usr/bin/Door1_state)
+       STATE1_CUR=$(</sys/class/gpio/gpio18/value)
+
+# If additional sensors are used, the following conditional must either
+# be duplicated for each sensor, or checks & echos for each sensor must be incorporated.
 
 # ====================================
-if [ "$STATE1_PRV" = "$STATE1_CUR" ]
-then
-       sleep 5
-else
-       if [ $STATE1_CUR = 1 ]
-          then
-              TEXT1=‘OPEN’
-          else
-              TEXT1=‘CLOSED’
-       fi
+       if [ "$STATE1_PRV" = "$STATE1_CUR" ]
+       then
+              sleep 5
+       else
+              if [ $STATE1_CUR = 1 ]
+              then
+                     TEXT1=‘OPEN’
+              else
+                     TEXT1=‘CLOSED’
+              fi
        
-       STR1=$(date +%F)” “$(date +%R)
-       
-       mv /usr/share/webiopi/htdocs/door.log /usr/share/webiopi/htdocs/door.bak
-       rm /usr/share/webiopi/htdocs/door.log
-       
-       echo $STR1 " = Door is" $TEXT1 >> /usr/share/webiopi/htdocs/door.log
-       cat /usr/share/webiopi/htdocs/door.bak >> /usr/share/webiopi/htdocs/door.log
+              # Create Date/Time string & store current sensor state.
+              STR1=$(date +%F)” “$(date +%R)
+              echo $STATE1_CUR > /usr/bin/Door1_state
+              
+              #  Create a backup of current log and then delete current log.
+              mv /usr/share/webiopi/htdocs/door.log /usr/share/webiopi/htdocs/door.bak
+              rm /usr/share/webiopi/htdocs/door.log
+              
+              # Echo the Date/Time string & current state to a new log. Then append (cat) with the backup.
+              echo $STR1 " = Door is" $TEXT1 >> /usr/share/webiopi/htdocs/door.log
+              cat /usr/share/webiopi/htdocs/door.bak >> /usr/share/webiopi/htdocs/door.log
 
-       echo $STATE1_CUR > /usr/bin/Door1_state
-fi
-       date
+       fi
+              date
 
 done
