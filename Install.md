@@ -43,14 +43,13 @@ network={
 
 { \\\ End of Wi-Fi network setup /// }
 
-
-
-
 ================= SECTION BREAK =======================
 { Setup RPZ settings }
 
-(1) {GUI} Menu...Preferences...Raspberry Pi Configuration
+(1) {GUI} 
+    Menu...Preferences...Raspberry Pi Configuration
 or
+
 (2) {CLI} 
     $ sudo raspi-config
 
